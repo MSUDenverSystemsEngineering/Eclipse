@@ -57,14 +57,14 @@ Try {
 	##*===============================================
 	## Variables: Application
 	[string]$appVendor = ''
-	[string]$appName = ''
-	[string]$appVersion = ''
-	[string]$appArch = ''
+	[string]$appName = 'Eclipse'
+	[string]$appVersion = '4.7.2'
+	[string]$appArch = 'x86'
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
 	[string]$appScriptVersion = '1.0.0'
-	[string]$appScriptDate = '06/12/2017'
-	[string]$appScriptAuthor = '<author name>'
+	[string]$appScriptDate = '12/21/2017'
+	[string]$appScriptAuthor = 'Truong Nguyen'
 	##*===============================================
 	## Variables: Install Titles (Only set here to override defaults set by the toolkit)
 	[string]$installName = ''
@@ -112,7 +112,7 @@ Try {
 		[string]$installPhase = 'Pre-Installation'
 
 		## Show Welcome Message, close applications if required, verify there is enough disk space to complete the install, and persist the prompt
-		Show-InstallationWelcome -CloseApps 'iexplore' -CheckDiskSpace -PersistPrompt
+		Show-InstallationWelcome -CloseApps 'eclipse' -CheckDiskSpace -PersistPrompt
 
 		## Show Progress Message (with the default message)
 		Show-InstallationProgress
@@ -132,7 +132,7 @@ Try {
 		}
 
 		## <Perform Installation tasks here>
-
+		Copy-File -Path "$dirFiles\*.*" -Destination "C:\"
 
 		##*===============================================
 		##* POST-INSTALLATION
@@ -140,6 +140,7 @@ Try {
 		[string]$installPhase = 'Post-Installation'
 
 		## <Perform Post-Installation tasks here>
+		New-Shortcut -Path "$envProgramData\Microsoft\Windows\Start Menu\eclipse.lnk" -TargetPath "C:\eclipse\eclipse.exe" -IconLocation "C:\eclipse\eclipse.exe" -Description "eclipse"
 
 		## Display a message at the end of the install
 		If (-not $useDefaultMsi) {Show-InstallationPrompt -Message "'$appVendor' '$appName' '$appVersion' has been Sucessfully Installed." -ButtonRightText ‘OK’ -Icon Information -NoWait}
@@ -152,7 +153,7 @@ Try {
 		[string]$installPhase = 'Pre-Uninstallation'
 
 		## Show Welcome Message, close applications with a 60 second countdown before automatically closing
-		Show-InstallationWelcome -CloseApps 'iexplore' -CloseAppsCountdown 60
+		Show-InstallationWelcome -CloseApps 'eclipse' -CloseAppsCountdown 60
 
 		## Show Progress Message (with the default message)
 		Show-InstallationProgress
@@ -172,7 +173,8 @@ Try {
 		}
 
 		# <Perform Uninstallation tasks here>
-
+		Remove-File -Path "$envProgramData\Microsoft\Windows\Start Menu\eclipse.lnk"
+		Remove-Folder -Path "C:\eclipse"
 
 		##*===============================================
 		##* POST-UNINSTALLATION
