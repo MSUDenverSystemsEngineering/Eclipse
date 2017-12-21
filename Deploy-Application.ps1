@@ -132,7 +132,7 @@ Try {
 		}
 
 		## <Perform Installation tasks here>
-		Copy-File -Path "$dirFiles\*.*" -Destination "C:\"
+		Copy-File -Path "$dirFiles\*" -Destination "C:\" -Recurse
 
 		##*===============================================
 		##* POST-INSTALLATION
