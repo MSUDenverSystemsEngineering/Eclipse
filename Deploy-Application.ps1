@@ -140,7 +140,7 @@ Try {
 		[string]$installPhase = 'Post-Installation'
 
 		## <Perform Post-Installation tasks here>
-		New-Shortcut -Path "$envProgramData\Microsoft\Windows\Start Menu\Programs\eclipse.lnk" -TargetPath "C:\eclipse\eclipse.exe -vmargs -Dosgi.instance.area.default=C:\eclipse\workspace" -IconLocation "C:\eclipse\eclipse.exe" -Description "eclipse"
+		New-Shortcut -Path "$envProgramData\Microsoft\Windows\Start Menu\Programs\eclipse.lnk" -TargetPath "C:\eclipse\eclipse.exe" -Arguments "-vmargs -Dosgi.instance.area.default=C:\eclipse\workspace" -IconLocation "C:\eclipse\eclipse.exe" -Description "eclipse"
 
 		## Display a message at the end of the install
 		If (-not $useDefaultMsi) {Show-InstallationPrompt -Message "'$appVendor' '$appName' '$appVersion' has been Sucessfully Installed." -ButtonRightText ‘OK’ -Icon Information -NoWait}
